@@ -4,8 +4,6 @@
 
 
 
-
-
 int main(void) {
     /* Standard int to hold length of match */
     int match_length;
