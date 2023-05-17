@@ -21,3 +21,6 @@ int main(void) {
     printf("returned_indexB=%d", returned_index != -1);
     return 0;
 }
+
+int x;
+// for testing commits
