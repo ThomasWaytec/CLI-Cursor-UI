@@ -24,3 +24,6 @@ int main(void) {
 
 int x;
 // for testing commits
+
+int y;
+// for testing commits (2)
