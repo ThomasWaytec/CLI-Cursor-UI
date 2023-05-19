@@ -18,7 +18,7 @@ int main(void) {
     int returned_index = re_matchp(pattern, string_to_search, &match_length);
 
     printf("returned_indexD=%d\n", returned_index);
-    printf("returned_indexB=%d", returned_index != -1);
+    printf("returned_indexB=%d\n", returned_index != -1);
     return 0;
 }
 
