@@ -2,6 +2,7 @@
 
 /*
 resources:
+
     ReadConsoleInput:
         https://learn.microsoft.com/en-us/windows/console/reading-input-buffer-events
         https://stackoverflow.com/questions/46658472/non-blocking-readconsoleinput
@@ -10,6 +11,10 @@ resources:
         https://stackoverflow.com/questions/421860/capture-characters-from-standard-input-without-waiting-for-enter-to-be-pressed
         https://stackoverflow.com/questions/10463201/getch-and-arrow-codes
         https://stackoverflow.com/questions/11472043/non-blocking-getch
+
+    FlushConsoleInputBuffer:
+        https://stackoverflow.com/questions/23129870/how-do-i-clean-input-buffer-before-using-getch
+        
 */
 
 #include <stdio.h>
@@ -21,9 +26,18 @@ int main(void) {
 
     char c;
     
+    size_t counter = 0;
+    
     while (1) {
 
+        counter++;
+
         printf("Processing...\n");
+        Sleep(7000);
+        if (counter > 1) {FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));}
+
+
+
         if (!kbhit()) {continue;}
 
         c = getch();
