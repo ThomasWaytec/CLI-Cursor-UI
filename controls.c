@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <conio.h>
-
+#include <windows.h>
 
 
 int main(void) {
@@ -11,6 +11,9 @@ int main(void) {
     char c;
     
     while (1) {
+
+        printf("Processing...\n");
+        if (!kbhit()) {continue;}
 
         c = getch();
         // parse arrows
