@@ -42,7 +42,7 @@ int main(void) {
         if (c == 27) {break;} // ESC key
 
         if (c == 32) {printf("<SPACE>");}
-
+        else if (c == 13) {printf("<ENTER>");}
         
         // parse arrows
         if (c == 0 || c == 224) { // if the first value is esc
