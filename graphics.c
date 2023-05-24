@@ -15,8 +15,11 @@ Resources:
 #include <windows.h>
 
 
+#define STD_HANDLE GetStdHandle(STD_OUTPUT_HANDLE)
 
+static const COORD TOP_LEFT_CURSOR_POSITION = {0, 0};
 
+    
 void print_terminal_dimensions(void) {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     int columns, rows;
@@ -51,6 +54,7 @@ void draw_grid(size_t grid_size, char** grid) {
     printf("|");
     for (size_t j = 0; j < strlen(grid[i - 1]); j++) {printf("-");}
     printf("|");
+    printf("\n");
 
 }
 
@@ -62,21 +66,29 @@ void draw_grid_with_cursor(size_t grid_size, char** grid, size_t cursor_position
     size_t cursor_size = strlen(temp);
 
     // create cursor
-    char* cursor = calloc(cursor_size, sizeof(char) + 1);
-    
-    for (size_t i = 0; i < cursor_size; i++) {cursor[i] = '_';}
+    char* cursor = calloc(cursor_size, sizeof(char) + 1);    
+    for (size_t i = 0; i < cursor_size; i++) {cursor[i] = 'X';}
+
+
+
+
+    system("cls||clear");
 
     grid[cursor_position] = cursor;
     draw_grid(grid_size, grid);
 
-    Sleep(10);
+    Sleep(100);
 
+    SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);
     grid[cursor_position] = temp;
     draw_grid(grid_size, grid);
 }
 
+
+
+
 int main(void) {
-    
+        
     const size_t grid_size = 3;
     char** grid = calloc(grid_size, __SIZEOF_POINTER__);
     // fill the grid
@@ -85,6 +97,8 @@ int main(void) {
     while (1) {
         // draw grid with cursor
         draw_grid_with_cursor(grid_size, grid, 0);
+        //Sleep(500);
+    
     }
     
 
