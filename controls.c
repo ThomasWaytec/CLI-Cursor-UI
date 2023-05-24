@@ -14,7 +14,7 @@ resources:
 
     FlushConsoleInputBuffer:
         https://stackoverflow.com/questions/23129870/how-do-i-clean-input-buffer-before-using-getch
-        
+
 */
 
 #include <stdio.h>
@@ -33,16 +33,18 @@ int main(void) {
         counter++;
 
         printf("Processing...\n");
-        Sleep(7000);
-        if (counter > 1) {FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));}
-
+        Sleep(100);
 
 
         if (!kbhit()) {continue;}
 
         c = getch();
+
+        if (c == 27) {break;} // ESC key
+
         // parse arrows
         if (c == 0 || c == 224) { // if the first value is esc
+
             switch(getch()) { // the real value
                 case 72:
                     printf("Arrow Up\n");
