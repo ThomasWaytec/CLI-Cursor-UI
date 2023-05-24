@@ -13,7 +13,7 @@ Resources:
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>
-
+#include <conio.h>
 
 #define STD_HANDLE GetStdHandle(STD_OUTPUT_HANDLE)
 
@@ -67,38 +67,67 @@ void draw_grid_with_cursor(size_t grid_size, char** grid, size_t cursor_position
 
     // create cursor
     char* cursor = calloc(cursor_size, sizeof(char) + 1);    
-    for (size_t i = 0; i < cursor_size; i++) {cursor[i] = 'X';}
+    for (size_t i = 0; i < cursor_size; i++) {cursor[i] = ' ';}
 
-
-
-
-    system("cls||clear");
 
     grid[cursor_position] = cursor;
     draw_grid(grid_size, grid);
 
-    Sleep(100);
+    Sleep(1);
 
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);
     grid[cursor_position] = temp;
     draw_grid(grid_size, grid);
+
 }
 
 
+size_t parse_arrow_keys(size_t MIN, size_t MAX, size_t cursor_position) {
 
+    if (!kbhit()) {return cursor_position;}
+
+    char user_input = getch();
+    if (user_input != 0 && user_input != 224) {return cursor_position;}
+
+    // parse the arrow keys
+    switch(getch()) {
+
+        case 72: // Arrow Up
+            if (cursor_position == MIN) {return cursor_position;}
+            return cursor_position - 1;
+            
+
+        case 80: // Arrow Down
+            if (cursor_position == MAX) {return cursor_position;}
+            return cursor_position + 1;
+
+
+    }
+    return cursor_position;
+}
 
 int main(void) {
         
     const size_t grid_size = 3;
     char** grid = calloc(grid_size, __SIZEOF_POINTER__);
+
     // fill the grid
     for (size_t i = 0; i < grid_size; i++) {grid[i] = "test";}
     
+
+
+    system("cls||clear");
+    // main loop
+    size_t cursor_position = 0;
     while (1) {
-        // draw grid with cursor
-        draw_grid_with_cursor(grid_size, grid, 0);
-        //Sleep(500);
-    
+
+
+        draw_grid_with_cursor(grid_size, grid, cursor_position);
+        SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);
+        
+        cursor_position = parse_arrow_keys(0, 2, cursor_position);
+        Sleep(1);
+
     }
     
 
