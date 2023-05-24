@@ -4,12 +4,18 @@ Resources:
     GetConsoleScreenBufferInfo:
         https://stackoverflow.com/questions/6812224/getting-terminal-size-in-c-for-windows
 
+    SetConsoleCursorPosition:
+        https://stackoverflow.com/questions/73682672/why-are-console-graphics-so-slow-in-c
+
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>
+
+
+
 
 void print_terminal_dimensions(void) {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -50,6 +56,8 @@ void draw_grid(size_t grid_size, char** grid) {
 
 void draw_grid_with_cursor(size_t grid_size, char** grid, size_t cursor_position) {
 
+    
+
     char* temp = grid[cursor_position];
     size_t cursor_size = strlen(temp);
 
@@ -58,11 +66,9 @@ void draw_grid_with_cursor(size_t grid_size, char** grid, size_t cursor_position
     
     for (size_t i = 0; i < cursor_size; i++) {cursor[i] = '_';}
 
-    system("cls");
     grid[cursor_position] = cursor;
     draw_grid(grid_size, grid);
 
-    system("cls");
     Sleep(10);
 
     grid[cursor_position] = temp;
