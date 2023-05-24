@@ -79,7 +79,7 @@ void draw_grid_with_cursor(size_t grid_size, char** grid, size_t cursor_position
     grid[cursor_position] = cursor;
     draw_grid(grid_size, grid);
 
-    Sleep(1);
+    Sleep(5);
 
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);
     grid[cursor_position] = temp;
@@ -113,13 +113,19 @@ size_t parse_arrow_keys(size_t MIN, size_t MAX, size_t cursor_position) {
 }
 
 int main(void) {
-        
+      
     const size_t grid_size = 3;
     char** grid = calloc(grid_size, __SIZEOF_POINTER__);
 
     // fill the grid
     for (size_t i = 0; i < grid_size; i++) {grid[i] = "test";}
-    
+
+    // hide Windows terminal cursor
+    CONSOLE_CURSOR_INFO cursorInfo;
+    GetConsoleCursorInfo(STD_HANDLE, &cursorInfo);
+    cursorInfo.bVisible = 0;
+    SetConsoleCursorInfo(STD_HANDLE, &cursorInfo);
+
 
 
     system("cls||clear");
