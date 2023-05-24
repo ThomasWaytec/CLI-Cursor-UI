@@ -7,6 +7,7 @@ Resources:
 */
 
 #include <stdio.h>
+#include <string.h>
 #include <windows.h>
 
 void print_terminal_dimensions(void) {
@@ -27,9 +28,36 @@ void print_terminal_dimensions(void) {
 }
 
 
+void draw_grid(const size_t grid_size, const char** grid) {
+    size_t i;
+    for (i = 0; i < grid_size; i++)
+    {
+        printf("|");
+        for (size_t j = 0; j < strlen(grid[i]); j++) {printf("-");}
+        printf("|");
+        printf("\n");
+
+        printf("|%s|\n", grid[i]);
+
+    }
+    printf("|");
+    for (size_t j = 0; j < strlen(grid[i - 1]); j++) {printf("-");}
+    printf("|");
+
+}
 
 int main(void) {
+    
+    const size_t grid_size = 3;
+    char** grid = calloc(grid_size, __SIZEOF_POINTER__);
+    // fill the grid
+    for (size_t i = 0; i < grid_size; i++) {grid[i] = "test";}
+    
 
+    // draw grid
+    draw_grid(grid_size, grid);
+    
+    
 
     return 0;
 }
