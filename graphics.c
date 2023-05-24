@@ -4,6 +4,9 @@ Resources:
     GetConsoleScreenBufferInfo:
         https://stackoverflow.com/questions/6812224/getting-terminal-size-in-c-for-windows
 
+    SetConsoleCursorInfo:
+        https://stackoverflow.com/questions/18028808/remove-blinking-underscore-on-console-cmd-prompt
+
     SetConsoleCursorPosition:
         https://stackoverflow.com/questions/73682672/why-are-console-graphics-so-slow-in-c
 
