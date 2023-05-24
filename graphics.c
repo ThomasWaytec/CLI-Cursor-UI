@@ -7,6 +7,7 @@ Resources:
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <windows.h>
 
@@ -28,7 +29,8 @@ void print_terminal_dimensions(void) {
 }
 
 
-void draw_grid(const size_t grid_size, const char** grid) {
+void draw_grid(size_t grid_size, char** grid) {
+
     size_t i;
     for (i = 0; i < grid_size; i++)
     {
@@ -46,6 +48,27 @@ void draw_grid(const size_t grid_size, const char** grid) {
 
 }
 
+void draw_grid_with_cursor(size_t grid_size, char** grid, size_t cursor_position) {
+
+    char* temp = grid[cursor_position];
+    size_t cursor_size = strlen(temp);
+
+    // create cursor
+    char* cursor = calloc(cursor_size, sizeof(char) + 1);
+    
+    for (size_t i = 0; i < cursor_size; i++) {cursor[i] = '_';}
+
+    system("cls");
+    grid[cursor_position] = cursor;
+    draw_grid(grid_size, grid);
+
+    system("cls");
+    Sleep(10);
+
+    grid[cursor_position] = temp;
+    draw_grid(grid_size, grid);
+}
+
 int main(void) {
     
     const size_t grid_size = 3;
@@ -53,10 +76,10 @@ int main(void) {
     // fill the grid
     for (size_t i = 0; i < grid_size; i++) {grid[i] = "test";}
     
-
-    // draw grid
-    draw_grid(grid_size, grid);
-    
+    while (1) {
+        // draw grid with cursor
+        draw_grid_with_cursor(grid_size, grid, 0);
+    }
     
 
     return 0;
