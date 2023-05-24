@@ -7,6 +7,9 @@ Resources:
     SetConsoleCursorPosition:
         https://stackoverflow.com/questions/73682672/why-are-console-graphics-so-slow-in-c
 
+    Moderate windows terminal flickering:
+        https://stackoverflow.com/questions/34842526/update-console-without-flickering-c
+
 */
 
 #include <stdio.h>
