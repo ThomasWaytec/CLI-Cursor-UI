@@ -32,8 +32,7 @@ int main(void) {
 
         counter++;
 
-        printf("Processing...\n");
-        Sleep(100);
+        Sleep(50);
 
 
         if (!kbhit()) {continue;}
@@ -42,8 +41,12 @@ int main(void) {
 
         if (c == 27) {break;} // ESC key
 
+        if (c == 32) {printf("<SPACE>");}
+
+        
         // parse arrows
         if (c == 0 || c == 224) { // if the first value is esc
+            printf("<escape character>");
 
             switch(getch()) { // the real value
                 case 72:
@@ -65,7 +68,7 @@ int main(void) {
             }
         }
 
-        printf("%d, %c\n", c, c);
+        else {printf("%d, %c\n", c, c);}
     }
 
     return 0;
