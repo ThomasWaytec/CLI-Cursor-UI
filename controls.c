@@ -1,8 +1,9 @@
-
 #include <stdio.h>
 #include <conio.h>
 #include <windows.h>
 
+#define ESCAPE_VALUE 224
+#define ESCAPE_VALUE_NUM_PAD 0 
 #define ESC_KEY 27
 #define SPACE_KEY 32
 #define ENTER_KEY 13
@@ -11,58 +12,55 @@
 #define ARROW_LEFT 75
 #define ARROW_RIGHT 77
 
-#define ESCAPE_VALUE 224
-#define ESCAPE_VALUE_NUM_PAD 0 
-
-#define BUTTON_MAPPING_LENGHT 127
+#define BUTTON_MAPPING_LENGHT 255
 
 
 
 
-void dummy_function(int* dummy_value) {return;}
 
-/* key = index in array; value = function pointer; */
-/* to access a value, example: button_mapping['a'] */
-typedef void* BUTTON_MAPPING[BUTTON_MAPPING_LENGHT];
-
-
-BUTTON_MAPPING create_button_mapping(void) {
-    BUTTON_MAPPING button_mapping = {};
-    for (size_t i = 0; i < BUTTON_MAPPING_LENGHT; i++) {button_mapping[i] = dummy_function;}
-
-    return (*button_mapping);
-}
-
-
-void process_user_input(BUTTON_MAPPING button_mapping) {
+void process_user_input(const int MIN, const int MAX, int* value_to_modify, const int* button_mapping) {
     
-    char user_key;
-
+    
     if (!kbhit()) {return;}
 
+    char user_key;
     user_key = getch();
-
     if (user_key == ESCAPE_VALUE || user_key == ESCAPE_VALUE_NUM_PAD) {user_key = getch();}
 
-    
-    button_mapping[user_key]();
-    
+
+    int modified_value = (*value_to_modify) + button_mapping[user_key];
+    if (modified_value < MIN) {modified_value = MIN;}
+    if (modified_value > MAX) {modified_value = MAX;}
+
+    (*value_to_modify) = modified_value;
 
 
+    
 }
 
 
-
+// Test/Usage
 int main(void) {
 
 
+    // create button mapping
+    int button_mapping[BUTTON_MAPPING_LENGHT] = {0};
+    button_mapping['a'] = 1;
+    button_mapping['b'] = 2;
+    button_mapping['c'] = -1;
+    button_mapping[ENTER_KEY] = 10;
+    button_mapping[SPACE_KEY] = -10;
 
-    
-    //for (size_t i = 0; i < BUTTON_MAPPING_LENGHT; i++) {printf("%d\n", button_mapping[i] == dummy_function);}
-    //printf("%p\n%p\n", x, dummy_function);
+    // create cursor
+    int* cursor = calloc(1, __SIZEOF_INT__);
+    (*cursor) = 0;
 
 
+    while (1) {
+        process_user_input(0, 9, cursor, button_mapping);
+        printf("cursor=%d\n", *cursor);
+        Sleep(1 * 1000);
+    }
 
-    //process_user_input(button_mapping);
     return 0;
 }
