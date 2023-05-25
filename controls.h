@@ -1,5 +1,5 @@
-#ifndef controls.h
-#define controls.h
+#ifndef CONTROLS_H
+#define CONTROLS_H
 
 #define ESCAPE_VALUE 224
 #define ESCAPE_VALUE_NUM_PAD 0 
