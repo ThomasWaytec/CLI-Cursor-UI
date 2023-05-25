@@ -1,21 +1,3 @@
-/* Experiment with different ways to get input from user */
-
-/*
-resources:
-
-    ReadConsoleInput:
-        https://learn.microsoft.com/en-us/windows/console/reading-input-buffer-events
-        https://stackoverflow.com/questions/46658472/non-blocking-readconsoleinput
-
-    getch:
-        https://stackoverflow.com/questions/421860/capture-characters-from-standard-input-without-waiting-for-enter-to-be-pressed
-        https://stackoverflow.com/questions/10463201/getch-and-arrow-codes
-        https://stackoverflow.com/questions/11472043/non-blocking-getch
-
-    FlushConsoleInputBuffer:
-        https://stackoverflow.com/questions/23129870/how-do-i-clean-input-buffer-before-using-getch
-
-*/
 
 #include <stdio.h>
 #include <conio.h>

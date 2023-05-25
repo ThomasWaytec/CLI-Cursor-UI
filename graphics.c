@@ -118,7 +118,7 @@ int main(void) {
     char** grid = calloc(grid_size, __SIZEOF_POINTER__);
 
     // fill the grid
-    for (size_t i = 0; i < grid_size; i++) {grid[i] = "test";}
+    for (size_t i = 0; i < grid_size; i++) {grid[i] = "OPTION X";}
 
     // hide Windows terminal cursor
     CONSOLE_CURSOR_INFO cursorInfo;
