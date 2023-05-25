@@ -3,55 +3,34 @@
 #include <conio.h>
 #include <windows.h>
 
+#define ESC_KEY 27
+#define SPACE_KEY 32
+#define ENTER_KEY 13
 
-int main(void) {
+#define ARROW_UP 72
+#define ARROW_DOWN 80
+#define ARROW_LEFT 75
+#define ARROW_RIGHT 77
 
-    char c;
+#define ESCAPE_VALUE 224
+#define ESCAPE_VALUE_NUM_PAD 0 
+
+/* key = index in array; value = function pointer; */
+/* to access a value, example: button_mapping['a'] */
+void* button_mapping[127] = {};
+void process_user_input() {
     
-    size_t counter = 0;
+    char user_key;
+
+    if (!kbhit()) {return;}
+
+    user_key = getch();
+
+    if (user_key == ESCAPE_VALUE || user_key == ESCAPE_VALUE_NUM_PAD) {user_key = getch();}
+
     
-    while (1) {
-
-        counter++;
-
-        Sleep(50);
+    return button_mapping[user_key]();
+    
 
 
-        if (!kbhit()) {continue;}
-
-        c = getch();
-
-        if (c == 27) {break;} // ESC key
-
-        if (c == 32) {printf("<SPACE>");}
-        else if (c == 13) {printf("<ENTER>");}
-        
-        // parse arrows
-        if (c == 0 || c == 224) { // if the first value is esc
-            printf("<escape character>");
-
-            switch(getch()) { // the real value
-                case 72:
-                    printf("Arrow Up\n");
-                    // code for arrow up
-                    break;
-                case 80:
-                    printf("Arrow Down\n");
-                    // code for arrow down
-                    break;
-                case 75:
-                    printf("Arrow Right\n");
-                    // code for arrow right
-                    break;
-                case 77:
-                    printf("Arrow Left\n");
-                    // code for arrow left
-                    break;
-            }
-        }
-
-        else {printf("%d, %c\n", c, c);}
-    }
-
-    return 0;
 }
