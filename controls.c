@@ -31,13 +31,13 @@ void process_user_input(const int MIN, const int MAX, int* value_to_modify, cons
 int main(void) {
 
 
-    // create button mapping
-    int button_mapping[BUTTON_MAPPING_LENGHT] = {0};
-    button_mapping['a'] = 1;
-    button_mapping['b'] = 2;
-    button_mapping['c'] = -1;
-    button_mapping[ENTER_KEY] = 10;
-    button_mapping[SPACE_KEY] = -10;
+    // create key mapping
+    int key_mapping[key_MAPPING_LENGHT] = {0};
+    key_mapping['a'] = 1;
+    key_mapping['b'] = 2;
+    key_mapping['c'] = -1;
+    key_mapping[ENTER_KEY] = 10;
+    key_mapping[SPACE_KEY] = -10;
 
     // create cursor
     int* cursor = calloc(1, __SIZEOF_INT__);
@@ -45,7 +45,7 @@ int main(void) {
 
 
     while (1) {
-        process_user_input(0, 9, cursor, button_mapping);
+        process_user_input(0, 9, cursor, key_mapping);
         printf("cursor=%d\n", *cursor);
         Sleep(1 * 1000);
     }
