@@ -11,7 +11,7 @@
 #define ARROW_LEFT 75
 #define ARROW_RIGHT 77
 
-#define BUTTON_MAPPING_LENGHT 255
+#define KEY_MAPPING_LENGHT 255
 
 
 #endif
