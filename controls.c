@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <conio.h>
 #include <windows.h>
 
@@ -51,5 +52,36 @@ int main(void) {
     }
 
     return 0;
+}
+*/
+
+void mod_key_property(key_properties* key_property) {
+
+    key_property->add_to_x_coord += 1;
+    key_property->add_to_y_coord += 3;
+    key_property->terminate_loop = true;
+
+}
+
+/* this struct to be passed by value in order to make it mutable
+int main(void) {
+
+    
+    key_properties key_property = {0, 0, false};
+
+    printf("add_to_x_coord=%d\n", key_property.add_to_x_coord);
+    printf("add_to_y_coord=%d\n", key_property.add_to_y_coord);
+    printf("terminate_loop=%d\n", key_property.terminate_loop);
+
+    mod_key_property(&key_property);
+
+    printf("add_to_x_coord=%d\n", key_property.add_to_x_coord);
+    printf("add_to_y_coord=%d\n", key_property.add_to_y_coord);
+    printf("terminate_loop=%d\n", key_property.terminate_loop);
+
+
+
+    return 0;
+    
 }
 */
