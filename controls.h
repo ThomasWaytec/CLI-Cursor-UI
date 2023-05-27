@@ -1,6 +1,8 @@
 #ifndef CONTROLS_H
 #define CONTROLS_H
 
+#include <stdbool.h>
+
 #define ESCAPE_VALUE 224
 #define ESCAPE_VALUE_NUM_PAD 0 
 #define ESC_KEY 27
@@ -13,5 +15,11 @@
 
 #define KEY_MAPPING_LENGHT 255
 
+typedef struct {
 
+    int add_to_x_coord;
+    int add_to_y_coord;
+    bool terminate_loop;
+}
+key_properties;
 #endif
