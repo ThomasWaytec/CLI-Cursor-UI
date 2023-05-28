@@ -5,8 +5,8 @@
 
 #include "controls.h"
 
-
-void process_user_input(const int MIN, const int MAX, int* value_to_modify, const int* key_mapping) {
+/*
+void process_user_input(Cursor* cursor, const Key* key_mapping[KEY_MAPPING_LENGHT]) {
     
     
     if (!kbhit()) {return;}
@@ -25,24 +25,32 @@ void process_user_input(const int MIN, const int MAX, int* value_to_modify, cons
 
     
 }
+*/
 
 
-/*
 // Test/Usage
 int main(void) {
 
 
-    // create key mapping
-    int key_mapping[key_MAPPING_LENGHT] = {0};
-    key_mapping['a'] = 1;
-    key_mapping['b'] = 2;
-    key_mapping['c'] = -1;
-    key_mapping[ENTER_KEY] = 10;
-    key_mapping[SPACE_KEY] = -10;
+    // setup key mapping
+    Key key_mapping[KEY_MAPPING_LENGHT] = {
 
-    // create cursor
-    int* cursor = calloc(1, __SIZEOF_INT__);
-    (*cursor) = 0;
+        [ARROW_UP] = {.add_to_x_coord = 0, .add_to_y_coord = 1, .terminate_loop = false},
+        [ARROW_DOWN] = {.add_to_x_coord = 0, .add_to_y_coord = -1, .terminate_loop = false},
+        [ARROW_RIGHT] = {.add_to_x_coord = 1, .add_to_y_coord = 0, .terminate_loop = false},
+        [ARROW_LEFT] = {.add_to_x_coord = -1, .add_to_y_coord = 0, .terminate_loop = false},
+        
+        
+    };
+
+    //Key key = {.add_to_x_coord = 1, .add_to_y_coord = 0, .terminate_loop = false};
+    //key_mapping[ARROW_RIGHT] = Key key = {.add_to_x_coord = 1, .add_to_y_coord = 0, .terminate_loop = false};
+    //key_mapping['a'] = {0, 0, };
+    //key_mapping['b'] = 2;
+    //key_mapping['c'] = -1;
+    //key_mapping[ENTER_KEY] = 10;
+    //key_mapping[SPACE_KEY] = -10;
+
 
 
     while (1) {
@@ -53,15 +61,7 @@ int main(void) {
 
     return 0;
 }
-*/
 
-void mod_key_property(key_properties* key_property) {
-
-    key_property->add_to_x_coord += 1;
-    key_property->add_to_y_coord += 3;
-    key_property->terminate_loop = true;
-
-}
 
 /* this struct to be passed by value in order to make it mutable
 int main(void) {

@@ -10,10 +10,11 @@
 #define ENTER_KEY 13
 #define ARROW_UP 72
 #define ARROW_DOWN 80
-#define ARROW_LEFT 75
 #define ARROW_RIGHT 77
+#define ARROW_LEFT 75
 
-#define KEY_MAPPING_LENGHT 255
+
+#define KEY_MAPPING_LENGHT 255  
 
 
 
