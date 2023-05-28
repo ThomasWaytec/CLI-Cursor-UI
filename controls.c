@@ -32,6 +32,7 @@ void process_user_input(Cursor* cursor, const Key* key_mapping[KEY_MAPPING_LENGH
 int main(void) {
 
 
+
     // setup key mapping
     Key key_mapping[KEY_MAPPING_LENGHT] = {
 
@@ -39,17 +40,13 @@ int main(void) {
         [ARROW_DOWN] = {.add_to_x_coord = 0, .add_to_y_coord = -1, .terminate_loop = false},
         [ARROW_RIGHT] = {.add_to_x_coord = 1, .add_to_y_coord = 0, .terminate_loop = false},
         [ARROW_LEFT] = {.add_to_x_coord = -1, .add_to_y_coord = 0, .terminate_loop = false},
-        
-        
-    };
 
-    //Key key = {.add_to_x_coord = 1, .add_to_y_coord = 0, .terminate_loop = false};
-    //key_mapping[ARROW_RIGHT] = Key key = {.add_to_x_coord = 1, .add_to_y_coord = 0, .terminate_loop = false};
-    //key_mapping['a'] = {0, 0, };
-    //key_mapping['b'] = 2;
-    //key_mapping['c'] = -1;
-    //key_mapping[ENTER_KEY] = 10;
-    //key_mapping[SPACE_KEY] = -10;
+        ['a'] = {.add_to_x_coord = 1, .add_to_y_coord = 1, .terminate_loop = false},
+        ['b'] = {.add_to_x_coord = 2, .add_to_y_coord = 2, .terminate_loop = false},
+        ['c'] = {.add_to_x_coord = -3, .add_to_y_coord = -3, .terminate_loop = false},
+
+        [ENTER_KEY] {.add_to_x_coord = 0, .add_to_y_coord = 0, .terminate_loop = true}        
+    };
 
 
 
