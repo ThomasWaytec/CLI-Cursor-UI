@@ -24,5 +24,5 @@ typedef struct {
     /* if process_user_input runs in a loop specify which key(s) terminate the loop when pressed */
     bool terminate_loop;
 }
-key_properties;
+KeyProperties;
 #endif
