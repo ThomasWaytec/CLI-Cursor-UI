@@ -21,19 +21,20 @@ void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid)
         {
             printf("-");
         }
-        
     }
-    printf("|");
+    printf("--|");
     printf("\n");
     
     for (size_t row = 0; row < GRID_HEIGHT; row++)
     {
-
+        printf("|");
         for (size_t column = 0; column < GRID_LENGTH; column++)
         {   
 
-            printf("%s ", grid[row][column]);
+            printf("%s|", grid[row][column]);
         }
+        printf("\n|-----|------------|------|");
+        
         printf("\n");
     }
 
