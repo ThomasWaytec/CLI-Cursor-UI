@@ -5,27 +5,37 @@
 
 #include "controls.h"
 
-/*
-void process_user_input(Cursor* cursor, const Key* key_mapping[KEY_MAPPING_LENGHT]) {
+
+bool process_user_input(Cursor* cursor, const Key* key_mapping, bool* terminate_loop) {
+    
+    /* if there's a key value in the buffer*/
+    if (!kbhit()) {return false;}
+
+    
+    char pressed_key;
+    pressed_key = getch();
+    /* some keys send an escape value and then the actual value */
+    if (pressed_key == ESCAPE_VALUE || pressed_key == ESCAPE_VALUE_NUM_PAD) {pressed_key = getch();}
+
     
     
-    if (!kbhit()) {return;}
+    Key mapped_pressed_key = key_mapping[pressed_key];
+    cursor->x_coord += mapped_pressed_key.add_to_x_coord;
+    cursor->y_coord += mapped_pressed_key.add_to_y_coord;
 
-    char user_key;
-    user_key = getch();
-    if (user_key == ESCAPE_VALUE || user_key == ESCAPE_VALUE_NUM_PAD) {user_key = getch();}
+    // cursor x and y coord bounds check
+    if (cursor->x_coord < cursor->x_coord_min) {cursor->x_coord = cursor->x_coord_min;}
+    if (cursor->x_coord > cursor->x_coord_max) {cursor->x_coord = cursor->x_coord_max;}
 
-
-    int modified_value = (*value_to_modify) + key_mapping[user_key];
-    if (modified_value < MIN) {modified_value = MIN;}
-    if (modified_value > MAX) {modified_value = MAX;}
-
-    (*value_to_modify) = modified_value;
-
-
+    if (cursor->y_coord < cursor->y_coord_min) {cursor->y_coord = cursor->y_coord_min;}
+    if (cursor->y_coord > cursor->y_coord_max) {cursor->y_coord = cursor->y_coord_max;}
+    
+    *terminate_loop = mapped_pressed_key.terminate_loop;
+    
+    return *terminate_loop;
     
 }
-*/
+
 
 
 // Test/Usage
@@ -61,7 +71,15 @@ int main(void) {
         .y_coord_max = 9,
     };
 
-    
+
+    bool terminate_loop = false;
+    while (!process_user_input(&cursor, key_mapping, &terminate_loop)) {
+        
+        printf("%d %d\n", cursor.x_coord, cursor.y_coord);
+        //printf("cursor.x_coord=%d\n", cursor.x_coord);
+        //printf("cursor.y_coord=%d\n", cursor.y_coord);
+    }
+
     return 0;
 }
 
