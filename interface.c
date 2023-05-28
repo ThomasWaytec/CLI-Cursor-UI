@@ -10,22 +10,6 @@
 static const COORD TOP_LEFT_CURSOR_POSITION = {0, 0};
 
     
-void print_terminal_dimensions(void) {
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    int columns, rows;
-
-    while (1) {
-        GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
-        columns = csbi.srWindow.Right - csbi.srWindow.Left + 1;
-        rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
-
-        printf("columns: %d\n", columns);
-        printf("rows: %d\n", rows);
-        printf("\n");
-        Sleep(3 * 1000);
-    }
-
-}
 
 
 void draw_grid(size_t grid_size, char** grid) {
