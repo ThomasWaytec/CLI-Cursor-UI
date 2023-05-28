@@ -12,26 +12,34 @@ static const COORD TOP_LEFT_CURSOR_POSITION = {0, 0};
     
 
 
-void draw_grid(size_t grid_size, char** grid) {
+void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid) {
 
-    size_t i;
-    for (i = 0; i < grid_size; i++)
-    {
-        printf("|");
-        for (size_t j = 0; j < strlen(grid[i]); j++) {printf("-");}
-        printf("|");
-        printf("\n");
-
-        printf("|%s|\n", grid[i]);
-
+    /* print roof */
+    printf("|");
+    for (size_t column = 0; column < GRID_LENGTH; column++) {
+        for (size_t character = 0; character < sizeof(grid[0][column]); character++)
+        {
+            printf("-");
+        }
+        
     }
     printf("|");
-    for (size_t j = 0; j < strlen(grid[i - 1]); j++) {printf("-");}
-    printf("|");
     printf("\n");
+    
+    for (size_t row = 0; row < GRID_HEIGHT; row++)
+    {
+
+        for (size_t column = 0; column < GRID_LENGTH; column++)
+        {   
+
+            printf("%s ", grid[row][column]);
+        }
+        printf("\n");
+    }
 
 }
 
+/*
 void draw_grid_with_cursor(size_t grid_size, char** grid, size_t cursor_position) {
 
     
@@ -54,16 +62,10 @@ void draw_grid_with_cursor(size_t grid_size, char** grid, size_t cursor_position
     draw_grid(grid_size, grid);
 
 }
-
+*/
 
 int main(void) {
-      
-    const size_t grid_size = 3;
-    char** grid = calloc(grid_size, __SIZEOF_POINTER__);
-
-    // fill the grid
-    for (size_t i = 0; i < grid_size; i++) {grid[i] = "OPTION X";}
-
+    
     // hide Windows terminal cursor
     CONSOLE_CURSOR_INFO cursorInfo;
     GetConsoleCursorInfo(STD_HANDLE, &cursorInfo);
@@ -71,22 +73,29 @@ int main(void) {
     SetConsoleCursorInfo(STD_HANDLE, &cursorInfo);
 
 
+    // create grid
+    const size_t GRID_HEIGHT = 3;
+    const size_t GRID_LENGTH = 3;
 
-    system("cls||clear");
-    // main loop
-    size_t cursor_position = 0;
-    while (1) {
+    char*** grid = calloc(GRID_HEIGHT, __SIZEOF_POINTER__);
 
+    for (size_t row = 0; row < GRID_HEIGHT; row++)
+    {
+        grid[row] = calloc(GRID_LENGTH, __SIZEOF_POINTER__);
 
-        draw_grid_with_cursor(grid_size, grid, cursor_position);
-
-        SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);
+        for (size_t column = 0; column < GRID_LENGTH; column++)
+        {   
+            grid[row][column] = "Option X";
+        }
         
-        cursor_position = parse_arrow_keys(0, 2, cursor_position);
-        Sleep(1);
-
     }
     
+
+
+    //system("cls||clear");
+
+    draw_grid(GRID_HEIGHT, GRID_LENGTH, grid);
+
 
     return 0;
 }
