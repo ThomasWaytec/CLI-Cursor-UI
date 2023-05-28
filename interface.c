@@ -56,30 +56,6 @@ void draw_grid_with_cursor(size_t grid_size, char** grid, size_t cursor_position
 }
 
 
-size_t parse_arrow_keys(size_t MIN, size_t MAX, size_t cursor_position) {
-
-    if (!kbhit()) {return cursor_position;}
-
-    char user_input = getch();
-    if (user_input != 0 && user_input != 224) {return cursor_position;}
-
-    // parse the arrow keys
-    switch(getch()) {
-
-        case 72: // Arrow Up
-            if (cursor_position == MIN) {return cursor_position;}
-            return cursor_position - 1;
-            
-
-        case 80: // Arrow Down
-            if (cursor_position == MAX) {return cursor_position;}
-            return cursor_position + 1;
-
-
-    }
-    return cursor_position;
-}
-
 int main(void) {
       
     const size_t grid_size = 3;
