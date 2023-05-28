@@ -147,3 +147,50 @@ int main(void) {
 }
 
 
+/*
+// Test/Usage
+int main(void) {
+
+
+
+    // setup key mapping
+    Key key_mapping[KEY_MAPPING_LENGHT] = {
+
+        [ARROW_UP] = {.add_to_x_coord = 0, .add_to_y_coord = 1, .terminate_loop = false},
+        [ARROW_DOWN] = {.add_to_x_coord = 0, .add_to_y_coord = -1, .terminate_loop = false},
+        [ARROW_RIGHT] = {.add_to_x_coord = 1, .add_to_y_coord = 0, .terminate_loop = false},
+        [ARROW_LEFT] = {.add_to_x_coord = -1, .add_to_y_coord = 0, .terminate_loop = false},
+
+        ['a'] = {.add_to_x_coord = 1, .add_to_y_coord = 1, .terminate_loop = false},
+        ['b'] = {.add_to_x_coord = 2, .add_to_y_coord = 2, .terminate_loop = false},
+        ['c'] = {.add_to_x_coord = -3, .add_to_y_coord = -3, .terminate_loop = false},
+
+        [ENTER_KEY] {.add_to_x_coord = 0, .add_to_y_coord = 0, .terminate_loop = true}        
+    };
+
+    
+    
+    // set up cursor
+    Cursor cursor = {
+        .x_coord = 0,
+        .x_coord_min = 0,
+        .x_coord_max = 9,
+
+        .y_coord = 0,
+        .y_coord_min = 0,
+        .y_coord_max = 9,
+    };
+
+
+    bool terminate_loop = false;
+    while (!process_user_input(&cursor, key_mapping, &terminate_loop)) {
+        
+        printf("%d %d\n", cursor.x_coord, cursor.y_coord);
+        //printf("cursor.x_coord=%d\n", cursor.x_coord);
+        //printf("cursor.y_coord=%d\n", cursor.y_coord);
+    }
+
+    return 0;
+}
+
+*/
