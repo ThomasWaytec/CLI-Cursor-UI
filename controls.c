@@ -8,7 +8,7 @@
 
 bool process_user_input(Cursor* cursor, const Key* key_mapping, bool* terminate_loop) {
     
-    /* if there's a key value in the buffer*/
+    /* if there isn't a key value in the buffer */
     if (!kbhit()) {return false;}
 
     
