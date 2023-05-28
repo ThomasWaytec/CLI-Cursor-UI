@@ -1,19 +1,3 @@
-/* 
-Resources:
-
-    GetConsoleScreenBufferInfo:
-        https://stackoverflow.com/questions/6812224/getting-terminal-size-in-c-for-windows
-
-    SetConsoleCursorInfo:
-        https://stackoverflow.com/questions/18028808/remove-blinking-underscore-on-console-cmd-prompt
-
-    SetConsoleCursorPosition:
-        https://stackoverflow.com/questions/73682672/why-are-console-graphics-so-slow-in-c
-
-    Moderate windows terminal flickering:
-        https://stackoverflow.com/questions/34842526/update-console-without-flickering-c
-
-*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -135,6 +119,7 @@ int main(void) {
 
 
         draw_grid_with_cursor(grid_size, grid, cursor_position);
+
         SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);
         
         cursor_position = parse_arrow_keys(0, 2, cursor_position);
