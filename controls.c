@@ -48,37 +48,21 @@ int main(void) {
         [ENTER_KEY] {.add_to_x_coord = 0, .add_to_y_coord = 0, .terminate_loop = true}        
     };
 
+    
+    
+    // set up cursor
+    Cursor cursor = {
+        .x_coord = 0,
+        .x_coord_min = 0,
+        .x_coord_max = 9,
 
+        .y_coord = 0,
+        .y_coord_min = 0,
+        .y_coord_max = 9,
+    };
 
-    while (1) {
-        process_user_input(0, 9, cursor, key_mapping);
-        printf("cursor=%d\n", *cursor);
-        Sleep(1 * 1000);
-    }
-
+    
     return 0;
 }
 
 
-/* this struct to be passed by value in order to make it mutable
-int main(void) {
-
-    
-    key_properties key_property = {0, 0, false};
-
-    printf("add_to_x_coord=%d\n", key_property.add_to_x_coord);
-    printf("add_to_y_coord=%d\n", key_property.add_to_y_coord);
-    printf("terminate_loop=%d\n", key_property.terminate_loop);
-
-    mod_key_property(&key_property);
-
-    printf("add_to_x_coord=%d\n", key_property.add_to_x_coord);
-    printf("add_to_y_coord=%d\n", key_property.add_to_y_coord);
-    printf("terminate_loop=%d\n", key_property.terminate_loop);
-
-
-
-    return 0;
-    
-}
-*/
