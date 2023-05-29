@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 #include <windows.h>
 #include <conio.h>
@@ -10,30 +11,41 @@
 static const COORD TOP_LEFT_CURSOR_POSITION = {0, 0};
 
     
+size_t* get_largest_per_column(const size_t GRID_LENGTH, char*** grid) {
 
-
-void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid) {
-
-    /* print roof */
-    printf("|");
-    for (size_t column = 0; column < GRID_LENGTH; column++) {
-        for (size_t character = 0; character < sizeof(grid[0][column]); character++)
+    size_t* largest_per_column = calloc(GRID_LENGTH, sizeof(size_t));
+    size_t largest;
+    size_t current;
+     
+    for (size_t row = 0; row < GRID_LENGTH; row++)
+    {
+         
+        for (size_t column = 0; column < GRID_LENGTH; column++)
         {
-            printf("-");
-        }
+            largest = largest_per_column[column];
+            current = strlen(grid[row][column]);
+          
+            if (current > largest) {largest = current;}
+            largest_per_column[column] = largest;        
+        }    
     }
-    printf("--|");
-    printf("\n");
+
+    return largest_per_column;
+
+}
+
+void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, bool padding) {
+
+    if (padding) {size_t* largest_per_column = get_largest_per_column(GRID_LENGTH, grid);}
+
     
     for (size_t row = 0; row < GRID_HEIGHT; row++)
     {
-        printf("|");
         for (size_t column = 0; column < GRID_LENGTH; column++)
-        {   
+        {  
+            printf("%s  |  ", grid[row][column]);
 
-            printf("%s|", grid[row][column]);
         }
-        printf("\n|-----|------------|------|");
         
         printf("\n");
     }
@@ -90,12 +102,13 @@ int main(void) {
         }
         
     }
-    
+    grid[1][0] = "Custom Option";
+    grid[1][1] = "O";
+    grid[2][2] = "I ought to be reaaally long";
 
 
     //system("cls||clear");
-
-    draw_grid(GRID_HEIGHT, GRID_LENGTH, grid);
+    draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, false);
 
 
     return 0;
