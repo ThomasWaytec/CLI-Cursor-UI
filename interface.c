@@ -6,8 +6,11 @@
 #include <windows.h>
 #include <conio.h>
 
+#include "controls.h"
+
 #define STD_HANDLE GetStdHandle(STD_OUTPUT_HANDLE)
 
+const int BASE_PADDING = 3;
 static const COORD TOP_LEFT_CURSOR_POSITION = {0, 0};
 
     
@@ -67,38 +70,42 @@ void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid,
 
 }
 
-/*
-void draw_grid_with_cursor(size_t grid_size, char** grid, size_t cursor_position) {
+
+void draw_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, Cursor cursor) {
 
     
+    char* temp = grid[cursor.x_coord][cursor.y_coord];
+    size_t visual_cursor_length = strlen(temp);
 
-    char* temp = grid[cursor_position];
-    size_t cursor_size = strlen(temp);
-
-    // create cursor
-    char* cursor = calloc(cursor_size, sizeof(char) + 1);    
-    for (size_t i = 0; i < cursor_size; i++) {cursor[i] = ' ';}
+    /* create visual cursor */
+    char* visual_cursor = calloc(visual_cursor_length, sizeof(char) + 1);    
+    for (size_t i = 0; i < visual_cursor_length; i++) {visual_cursor[i] = ' ';}
 
 
-    grid[cursor_position] = cursor;
-    draw_grid(grid_size, grid);
+
+
+    /* render 2 framses */
+    grid[cursor.x_coord][cursor.y_coord] = visual_cursor;
+    SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);    
+    draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
 
     Sleep(5);
 
+    grid[cursor.x_coord][cursor.y_coord] = temp;
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);
-    grid[cursor_position] = temp;
-    draw_grid(grid_size, grid);
+    draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
 
 }
-*/
+
+
 
 int main(void) {
     
     // hide Windows terminal cursor
     CONSOLE_CURSOR_INFO cursorInfo;
     GetConsoleCursorInfo(STD_HANDLE, &cursorInfo);
-    cursorInfo.bVisible = 0;
-    SetConsoleCursorInfo(STD_HANDLE, &cursorInfo);
+    //cursorInfo.bVisible = 0;
+    //SetConsoleCursorInfo(STD_HANDLE, &cursorInfo);
 
 
     // create grid
@@ -117,9 +124,19 @@ int main(void) {
         }
     }
 
-    //system("cls||clear");
-    draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, 3);
+    /* create cursor */
+    Cursor cursor = {
+        .x_coord = 0,
+        .x_coord_min = 0,
+        .x_coord_max = 9,
 
+        .y_coord = 0,
+        .y_coord_min = 0,
+        .y_coord_max = 9,
+    };
+    
+    system("cls||clear");
+    while (1) {draw_grid_with_cursor(GRID_HEIGHT, GRID_LENGTH, grid, cursor);}
 
     return 0;
 }
