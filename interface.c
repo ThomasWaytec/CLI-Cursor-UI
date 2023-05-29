@@ -11,13 +11,14 @@
 static const COORD TOP_LEFT_CURSOR_POSITION = {0, 0};
 
     
-size_t* get_largest_per_column(const size_t GRID_LENGTH, char*** grid) {
+size_t* get_largest_per_column(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid) {
 
     size_t* largest_per_column = calloc(GRID_LENGTH, sizeof(size_t));
     size_t largest;
     size_t current;
      
-    for (size_t row = 0; row < GRID_LENGTH; row++)
+
+    for (size_t row = 0; row < GRID_HEIGHT; row++)
     {
          
         for (size_t column = 0; column < GRID_LENGTH; column++)
@@ -35,15 +36,34 @@ size_t* get_largest_per_column(const size_t GRID_LENGTH, char*** grid) {
 }
 
 void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, bool padding) {
-
-    if (padding) {size_t* largest_per_column = get_largest_per_column(GRID_LENGTH, grid);}
-
     
+    size_t* largest_per_column = get_largest_per_column(GRID_HEIGHT, GRID_LENGTH, grid);
+
+    size_t full_padding_length;
+    size_t padding_length_by_side;
+
+    char* text;
+    size_t text_length;
+    bool is_odd_length;
+
     for (size_t row = 0; row < GRID_HEIGHT; row++)
     {
         for (size_t column = 0; column < GRID_LENGTH; column++)
         {  
-            printf("%s  |  ", grid[row][column]);
+            text = grid[row][column];
+            text_length = strlen(text);
+            is_odd_length = (text_length % 2);
+            //text_length += is_odd_length;
+
+            full_padding_length = largest_per_column[column] - strlen(text);
+
+            padding_length_by_side = (full_padding_length)/2;
+            
+            
+            //printf("column=%d\n", column);printf("len_text=%d\n", strlen(text));printf("largest_per_column=%d\n", largest_per_column[column]);printf("text=%s\n", grid[row][column]);printf("full_padding_length=%d\n", full_padding_length);printf("padding_length_by_side=%d\n", padding_length_by_side);printf("\n");
+            
+
+            printf("%*s%s%*s|", padding_length_by_side, "", text, padding_length_by_side + (full_padding_length % 2), "");
 
         }
         
@@ -98,15 +118,15 @@ int main(void) {
 
         for (size_t column = 0; column < GRID_LENGTH; column++)
         {   
-            grid[row][column] = "Option X";
+            grid[row][column] = "test";
         }
         
     }
-    grid[1][0] = "Custom Option";
-    grid[1][1] = "O";
-    grid[2][2] = "I ought to be reaaally long";
+    grid[0][0] = "ev  en";
+    grid[1][1] = "111";
+    grid[2][2] = "LoLoLoLoLoLoLoLoLoLoLoLoo";
 
-
+    
     //system("cls||clear");
     draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, false);
 
