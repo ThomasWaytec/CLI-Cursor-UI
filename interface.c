@@ -88,8 +88,8 @@ void draw_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, c
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);    
     draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
 
-    Sleep(2);
-
+    Sleep(3);
+    
     grid[cursor.x_coord][cursor.y_coord] = temp;
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);
     draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
@@ -120,11 +120,11 @@ Cursor emulate_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** 
     Cursor cursor = {
         .x_coord = 0,
         .x_coord_min = 0,
-        .x_coord_max = 2,
+        .x_coord_max = GRID_HEIGHT - 1,
 
         .y_coord = 0,
         .y_coord_min = 0,
-        .y_coord_max = 2,
+        .y_coord_max = GRID_LENGTH - 1,
     };
     
     system("cls");
@@ -146,7 +146,7 @@ int main(void) {
 
 
     // create grid
-    const size_t GRID_HEIGHT = 3;
+    const size_t GRID_HEIGHT = 10;
     const size_t GRID_LENGTH = 3;
 
     char*** grid = calloc(GRID_HEIGHT, __SIZEOF_POINTER__);
@@ -160,7 +160,7 @@ int main(void) {
         }
     }
 
-    grid[1][2] = "helloka";
+    grid[0][0] = "helloka";
     
     Cursor cursor = emulate_grid(GRID_HEIGHT, GRID_LENGTH, grid);
 
