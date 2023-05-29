@@ -35,16 +35,16 @@ size_t* get_largest_per_column(const size_t GRID_HEIGHT, const size_t GRID_LENGT
 
 }
 
-void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, bool padding) {
+void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, const size_t BASE_PADDING) {
     
     size_t* largest_per_column = get_largest_per_column(GRID_HEIGHT, GRID_LENGTH, grid);
 
     size_t full_padding_length;
-    size_t padding_length_by_side;
+    size_t left_padding_length;
+    size_t right_pading_length;
 
     char* text;
     size_t text_length;
-    bool is_odd_length;
 
     for (size_t row = 0; row < GRID_HEIGHT; row++)
     {
@@ -52,19 +52,14 @@ void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid,
         {  
             text = grid[row][column];
             text_length = strlen(text);
-            is_odd_length = (text_length % 2);
-            //text_length += is_odd_length;
 
             full_padding_length = largest_per_column[column] - strlen(text);
-
-            padding_length_by_side = (full_padding_length)/2;
             
-            
-            //printf("column=%d\n", column);printf("len_text=%d\n", strlen(text));printf("largest_per_column=%d\n", largest_per_column[column]);printf("text=%s\n", grid[row][column]);printf("full_padding_length=%d\n", full_padding_length);printf("padding_length_by_side=%d\n", padding_length_by_side);printf("\n");
-            
+            left_padding_length = BASE_PADDING + full_padding_length/2;
+            right_pading_length = BASE_PADDING + full_padding_length/2 + (full_padding_length % 2);
+                
 
-            printf("%*s%s%*s|", padding_length_by_side, "", text, padding_length_by_side + (full_padding_length % 2), "");
-
+            printf("%*s%s%*s|", left_padding_length, "", text, right_pading_length, "");
         }
         
         printf("\n");
@@ -118,17 +113,12 @@ int main(void) {
 
         for (size_t column = 0; column < GRID_LENGTH; column++)
         {   
-            grid[row][column] = "test";
+            grid[row][column] = "Option X";
         }
-        
     }
-    grid[0][0] = "ev  en";
-    grid[1][1] = "111";
-    grid[2][2] = "LoLoLoLoLoLoLoLoLoLoLoLoo";
 
-    
     //system("cls||clear");
-    draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, false);
+    draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, 3);
 
 
     return 0;
