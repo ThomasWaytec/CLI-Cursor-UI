@@ -6,7 +6,7 @@
 #include "controls.h"
 
 
-bool process_user_input(Cursor* cursor, const Key* key_mapping, bool* terminate_loop) {
+bool process_user_input(Cursor* cursor, const Key* key_mapping) {
     
     /* if there isn't a key value in the buffer */
     if (!kbhit()) {return false;}
@@ -29,10 +29,8 @@ bool process_user_input(Cursor* cursor, const Key* key_mapping, bool* terminate_
 
     if (cursor->y_coord < cursor->y_coord_min) {cursor->y_coord = cursor->y_coord_min;}
     if (cursor->y_coord > cursor->y_coord_max) {cursor->y_coord = cursor->y_coord_max;}
-    
-    *terminate_loop = mapped_pressed_key.terminate_loop;
-    
-    return *terminate_loop;
+        
+    return mapped_pressed_key.terminate_loop;
     
 }
 
