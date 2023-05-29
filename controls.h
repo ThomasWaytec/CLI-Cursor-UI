@@ -39,6 +39,8 @@ typedef struct {
     int add_to_y_coord;
     /* if process_user_input runs in a loop specify which key(s) terminate the loop when pressed */
     bool terminate_loop;
-}
-Key;
+} Key;
+
+bool process_user_input(Cursor* cursor, const Key* key_mapping);
+
 #endif
