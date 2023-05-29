@@ -70,7 +70,6 @@ void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid,
 
 }
 
-
 void draw_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, Cursor cursor) {
 
     
@@ -89,7 +88,7 @@ void draw_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, c
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);    
     draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
 
-    Sleep(5);
+    Sleep(2);
 
     grid[cursor.x_coord][cursor.y_coord] = temp;
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);
@@ -97,6 +96,44 @@ void draw_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, c
 
 }
 
+Cursor emulate_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid) {
+
+    
+    /* setup key mapping */
+    Key key_mapping[KEY_MAPPING_LENGHT] = {
+
+        [ARROW_UP] = {.add_to_x_coord = -1, .add_to_y_coord = 0, .terminate_loop = false},
+        [ARROW_DOWN] = {.add_to_x_coord = 1, .add_to_y_coord = 0, .terminate_loop = false},
+        [ARROW_RIGHT] = {.add_to_x_coord = 0, .add_to_y_coord = 1, .terminate_loop = false},
+        [ARROW_LEFT] = {.add_to_x_coord = 0, .add_to_y_coord = -1, .terminate_loop = false},
+
+        ['w'] = {.add_to_x_coord = -1, .add_to_y_coord = 0, .terminate_loop = false},
+        ['s'] = {.add_to_x_coord = 1, .add_to_y_coord = 0, .terminate_loop = false},
+        ['d'] = {.add_to_x_coord = 0, .add_to_y_coord = 1, .terminate_loop = false},
+        ['a'] = {.add_to_x_coord = 0, .add_to_y_coord = -1, .terminate_loop = false},
+
+        
+        [ENTER_KEY] {.add_to_x_coord = 0, .add_to_y_coord = 0, .terminate_loop = true}        
+    };
+
+    /* initialize cursor */
+    Cursor cursor = {
+        .x_coord = 0,
+        .x_coord_min = 0,
+        .x_coord_max = 2,
+
+        .y_coord = 0,
+        .y_coord_min = 0,
+        .y_coord_max = 2,
+    };
+    
+    system("cls");
+    while (!process_user_input(&cursor, key_mapping)) {draw_grid_with_cursor(GRID_HEIGHT, GRID_LENGTH, grid, cursor);}
+    system("cls");
+
+
+    return cursor;
+}
 
 
 int main(void) {
@@ -104,8 +141,8 @@ int main(void) {
     // hide Windows terminal cursor
     CONSOLE_CURSOR_INFO cursorInfo;
     GetConsoleCursorInfo(STD_HANDLE, &cursorInfo);
-    //cursorInfo.bVisible = 0;
-    //SetConsoleCursorInfo(STD_HANDLE, &cursorInfo);
+    cursorInfo.bVisible = 0;
+    SetConsoleCursorInfo(STD_HANDLE, &cursorInfo);
 
 
     // create grid
@@ -113,7 +150,6 @@ int main(void) {
     const size_t GRID_LENGTH = 3;
 
     char*** grid = calloc(GRID_HEIGHT, __SIZEOF_POINTER__);
-
     for (size_t row = 0; row < GRID_HEIGHT; row++)
     {
         grid[row] = calloc(GRID_LENGTH, __SIZEOF_POINTER__);
@@ -124,68 +160,13 @@ int main(void) {
         }
     }
 
-    /* create cursor */
-    Cursor cursor = {
-        .x_coord = 0,
-        .x_coord_min = 0,
-        .x_coord_max = 9,
-
-        .y_coord = 0,
-        .y_coord_min = 0,
-        .y_coord_max = 9,
-    };
+    grid[1][2] = "helloka";
     
-    system("cls||clear");
-    while (1) {draw_grid_with_cursor(GRID_HEIGHT, GRID_LENGTH, grid, cursor);}
+    Cursor cursor = emulate_grid(GRID_HEIGHT, GRID_LENGTH, grid);
+
+    printf("x=%d ", cursor.x_coord);
+    printf("y=%d\n", cursor.y_coord);
+    printf("%s\n", grid[cursor.x_coord][cursor.y_coord]);    
 
     return 0;
 }
-
-
-/*
-// Test/Usage
-int main(void) {
-
-
-
-    // setup key mapping
-    Key key_mapping[KEY_MAPPING_LENGHT] = {
-
-        [ARROW_UP] = {.add_to_x_coord = 0, .add_to_y_coord = 1, .terminate_loop = false},
-        [ARROW_DOWN] = {.add_to_x_coord = 0, .add_to_y_coord = -1, .terminate_loop = false},
-        [ARROW_RIGHT] = {.add_to_x_coord = 1, .add_to_y_coord = 0, .terminate_loop = false},
-        [ARROW_LEFT] = {.add_to_x_coord = -1, .add_to_y_coord = 0, .terminate_loop = false},
-
-        ['a'] = {.add_to_x_coord = 1, .add_to_y_coord = 1, .terminate_loop = false},
-        ['b'] = {.add_to_x_coord = 2, .add_to_y_coord = 2, .terminate_loop = false},
-        ['c'] = {.add_to_x_coord = -3, .add_to_y_coord = -3, .terminate_loop = false},
-
-        [ENTER_KEY] {.add_to_x_coord = 0, .add_to_y_coord = 0, .terminate_loop = true}        
-    };
-
-    
-    
-    // set up cursor
-    Cursor cursor = {
-        .x_coord = 0,
-        .x_coord_min = 0,
-        .x_coord_max = 9,
-
-        .y_coord = 0,
-        .y_coord_min = 0,
-        .y_coord_max = 9,
-    };
-
-
-    bool terminate_loop = false;
-    while (!process_user_input(&cursor, key_mapping, &terminate_loop)) {
-        
-        printf("%d %d\n", cursor.x_coord, cursor.y_coord);
-        //printf("cursor.x_coord=%d\n", cursor.x_coord);
-        //printf("cursor.y_coord=%d\n", cursor.y_coord);
-    }
-
-    return 0;
-}
-
-*/
