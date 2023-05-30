@@ -70,7 +70,7 @@ static void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char**
 
 }
 
-void draw_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, Cursor cursor) {
+static void draw_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, Cursor cursor) {
 
     
     char* temp = grid[cursor.x_coord][cursor.y_coord];
