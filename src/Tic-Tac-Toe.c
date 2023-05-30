@@ -1,15 +1,12 @@
 #include <stdio.h>
+#include <windows.h>
+#include <conio.h>
 
-
-
-
-int main(void) {
-    return 0;
-}
-
-/*
+#include "controls.h"
+#include "interface.h"
 
 int main(void) {
+
     
     // hide Windows terminal cursor
     CONSOLE_CURSOR_INFO cursorInfo;
@@ -24,6 +21,7 @@ int main(void) {
 
     char*** grid = calloc(GRID_HEIGHT, __SIZEOF_POINTER__);
     
+    /*
     for (size_t row = 0; row < GRID_HEIGHT; row++)
     {
 
@@ -34,8 +32,7 @@ int main(void) {
             //grid[row][column] = "1x1";
         }
     }
-
-    // OR
+    */
     
     for (size_t row = 0; row < GRID_HEIGHT; row++) {grid[row] = calloc(GRID_LENGTH, __SIZEOF_POINTER__);}
    
@@ -53,4 +50,4 @@ int main(void) {
     return 0;
 }
 
-*/
+
