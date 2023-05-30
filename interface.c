@@ -38,7 +38,7 @@ static size_t* get_largest_per_column(const size_t GRID_HEIGHT, const size_t GRI
 
 }
 
-void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, const size_t BASE_PADDING) {
+static void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, const size_t BASE_PADDING) {
     
     size_t* largest_per_column = get_largest_per_column(GRID_HEIGHT, GRID_LENGTH, grid);
 
