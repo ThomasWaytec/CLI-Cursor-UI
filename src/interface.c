@@ -7,8 +7,7 @@
 #include <conio.h>
 
 #include "controls.h"
-
-#define STD_HANDLE GetStdHandle(STD_OUTPUT_HANDLE)
+#include "interface.h"
 
 const int BASE_PADDING = 3;
 static const COORD TOP_LEFT_CURSOR_POSITION = {0, 0};
