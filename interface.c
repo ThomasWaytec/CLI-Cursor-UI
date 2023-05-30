@@ -14,7 +14,7 @@ const int BASE_PADDING = 3;
 static const COORD TOP_LEFT_CURSOR_POSITION = {0, 0};
 
     
-size_t* get_largest_per_column(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid) {
+static size_t* get_largest_per_column(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid) {
 
     size_t* largest_per_column = calloc(GRID_LENGTH, sizeof(size_t));
     size_t largest;
