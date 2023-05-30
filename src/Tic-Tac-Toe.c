@@ -5,6 +5,15 @@
 #include "controls.h"
 #include "interface.h"
 
+void hide_terminal_cursor(void) {
+
+    /* hide Windows terminal cursor */
+    CONSOLE_CURSOR_INFO cursorInfo;
+    GetConsoleCursorInfo(STD_HANDLE, &cursorInfo);
+    cursorInfo.bVisible = 0;
+    SetConsoleCursorInfo(STD_HANDLE, &cursorInfo);
+
+}
 
 char* get_user_chosen_grid_size(void) {
     
@@ -36,12 +45,9 @@ char* get_user_chosen_grid_size(void) {
 
 int main(void) {
     
-    // hide Windows terminal cursor
-    CONSOLE_CURSOR_INFO cursorInfo;
-    GetConsoleCursorInfo(STD_HANDLE, &cursorInfo);
-    cursorInfo.bVisible = 0;
-    SetConsoleCursorInfo(STD_HANDLE, &cursorInfo);
+    hide_terminal_cursor();
 
+    
     char* chosen_grid_size = get_user_chosen_grid_size();
     printf("The user has chosen the %s grid size.\n", chosen_grid_size);
 
