@@ -82,13 +82,14 @@ static void draw_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRID_LE
 
 
 
-    /* render 2 framses */
+    /* show cursor */
     grid[cursor.x_coord][cursor.y_coord] = visual_cursor;
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);    
     draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
 
     Sleep(3);
 
+    /* change cursor to the original value */
     grid[cursor.x_coord][cursor.y_coord] = temp;
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);
     draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
