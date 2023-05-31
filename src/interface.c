@@ -127,7 +127,6 @@ Cursor emulate_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** 
     };
     
     system("cls");
-    printf("cos");
     while (!process_user_input(&cursor, key_mapping)) {draw_grid_with_cursor(GRID_HEIGHT, GRID_LENGTH, grid, cursor);}
     system("cls");
 
