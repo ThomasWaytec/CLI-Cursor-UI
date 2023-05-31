@@ -9,7 +9,7 @@
 #include "controls.h"
 #include "interface.h"
 
-const int BASE_PADDING = 3;
+static const int BASE_PADDING = 3;
 static const COORD TOP_LEFT_CURSOR_POSITION = {0, 0};
 
     
