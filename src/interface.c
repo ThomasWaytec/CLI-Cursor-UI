@@ -95,7 +95,7 @@ static void draw_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRID_LE
 
 }
 
-Cursor emulate_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid) {
+Cursor live_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid) {
 
     
     /* setup key mapping */

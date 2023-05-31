@@ -6,6 +6,6 @@
 #define STD_HANDLE GetStdHandle(STD_OUTPUT_HANDLE)
 
 
-Cursor emulate_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid);
+Cursor live_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid);
 
 #endif

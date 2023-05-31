@@ -34,7 +34,7 @@ char* get_user_chosen_grid_size(void) {
 
 
     /* get the chosen value from the user */
-    Cursor cursor = emulate_grid(GRID_HEIGHT, GRID_LENGTH, grid);
+    Cursor cursor = live_grid(GRID_HEIGHT, GRID_LENGTH, grid);
 
     /* return chosen value */
     char* chosen_grid_size = grid[cursor.x_coord][cursor.y_coord];
