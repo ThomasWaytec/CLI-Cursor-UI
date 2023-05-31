@@ -108,6 +108,8 @@ static void animate_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRID
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);
     draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
 
+    Sleep(3);
+
 }
 
 Cursor live_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid) {
