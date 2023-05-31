@@ -77,10 +77,10 @@ static void animate_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRID
 
     /* create visual cursors */
     char* space_visual_cursor = calloc(all_visual_cursor_length, sizeof(char) + 1);
-    char* hyphen_visual_cursor = calloc(all_visual_cursor_length, sizeof(char) + 1);    
+    char* equal_sign_visual_cursor = calloc(all_visual_cursor_length, sizeof(char) + 1);    
     
     for (size_t i = 0; i < all_visual_cursor_length; i++) {space_visual_cursor[i] = ' ';}
-    for (size_t i = 0; i < all_visual_cursor_length; i++) {hyphen_visual_cursor[i] = '-';}
+    for (size_t i = 0; i < all_visual_cursor_length; i++) {equal_sign_visual_cursor[i] = '=';}
 
 
 
@@ -89,7 +89,7 @@ static void animate_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRID
     /* draw 3 frames */
 
     /* frame with hyphen cursor */
-    grid[cursor.x_coord][cursor.y_coord] = hyphen_visual_cursor;
+    grid[cursor.x_coord][cursor.y_coord] = equal_sign_visual_cursor;
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);    
     draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
     
