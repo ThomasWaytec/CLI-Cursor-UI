@@ -51,7 +51,7 @@ int main(void) {
     char* chosen_grid_size = get_user_chosen_grid_size();
     printf("The user has chosen the %s grid size.\n", chosen_grid_size);
 
-
+    /* test commit */
     return 0;
 }
 
