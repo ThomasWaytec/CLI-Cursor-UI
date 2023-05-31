@@ -5,6 +5,16 @@
 #include "controls.h"
 #include "interface.h"
 
+bool is_space_occupied(char*** game_grid, Cursor cursor) {
+    if (game_grid[cursor.x_coord][cursor.y_coord] != " ")
+    {
+        printf("!!SPACE OCCUPIED!!");
+        Sleep(1500);
+        return true;    
+    }
+    return false;
+}
+
 void hide_terminal_cursor(void) {
 
     /* hide Windows terminal cursor */
@@ -51,7 +61,7 @@ int main(void) {
     
     hide_terminal_cursor();
 
-    
+    /* get the chosen grid size from the user */
     char* chosen_grid_size = get_user_chosen_grid_size();
     int grid_size = chosen_grid_size[0] - '0'; /* get grid size as integer*/
 
@@ -73,16 +83,26 @@ int main(void) {
     }
 
 
+
+    /* main gameplay loop */
     Cursor cursor;
+    char* player_symbols[2] = {"X", "O"};
+    char* current_player_symbol; 
+    size_t turn_counter = 0;
+    
     bool game_end = false;
     while (!game_end)
     {
-        cursor = live_grid(GRID_HEIGHT, GRID_LENGTH, game_grid);
-        game_grid[cursor.x_coord][cursor.y_coord] = "X";
-
-        cursor = live_grid(GRID_HEIGHT, GRID_LENGTH, game_grid);
-        game_grid[cursor.x_coord][cursor.y_coord] = "O";
         
+        current_player_symbol = player_symbols[turn_counter % 2];
+        cursor = live_grid(GRID_HEIGHT, GRID_LENGTH, game_grid);
+
+        /* check if space is occupied */
+        if (is_space_occupied(game_grid, cursor)) {continue;}
+        
+        game_grid[cursor.x_coord][cursor.y_coord] = current_player_symbol;
+        turn_counter++;
+
     }
     
     return 0;
