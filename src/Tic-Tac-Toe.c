@@ -94,6 +94,8 @@ int main(void) {
     while (!game_end)
     {
         
+        if (turn_counter == GRID_HEIGHT * GRID_LENGTH) {printf("Tie!"); break;}
+        
         current_player_symbol = player_symbols[turn_counter % 2];
         cursor = live_grid(GRID_HEIGHT, GRID_LENGTH, game_grid);
 
