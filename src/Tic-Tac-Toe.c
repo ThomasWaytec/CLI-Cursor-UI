@@ -1,4 +1,4 @@
- #include <stdio.h>
+#include <stdio.h>
 #include <windows.h>
 #include <conio.h>
 
@@ -42,13 +42,36 @@ char* get_user_chosen_grid_size(void) {
 
 }
 
+
 int main(void) {
     
     hide_terminal_cursor();
 
     
     char* chosen_grid_size = get_user_chosen_grid_size();
-    printf("The user has chosen the %s grid size.\n", chosen_grid_size);
+
+
+
+    /* create game grid of chosen size */
+    int grid_size = chosen_grid_size[0] - '0'; /* get grid size as integer*/
+    
+    const size_t GRID_HEIGHT = grid_size;
+    const size_t GRID_LENGTH = grid_size;
+
+    char*** game_grid = calloc(GRID_HEIGHT, __SIZEOF_POINTER__); /* allocating space for the grid */
+
+    for (size_t row = 0; row < GRID_HEIGHT; row++) {
+        game_grid[row] = calloc(GRID_LENGTH, __SIZEOF_POINTER__);
+
+        for (size_t column = 0; column < GRID_LENGTH; column++)
+        {
+            game_grid[row][column] = " ";     /* initializing the grid */
+        }
+    }
+
+
+
+    live_grid(GRID_HEIGHT, GRID_LENGTH, game_grid);
 
     return 0;
 }
