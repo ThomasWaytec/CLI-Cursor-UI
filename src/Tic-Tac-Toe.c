@@ -37,8 +37,7 @@ char* get_user_chosen_grid_size(void) {
     Cursor cursor = emulate_grid(GRID_HEIGHT, GRID_LENGTH, grid);
 
     /* return chosen value */
-    char* chosen_grid_size = calloc(LONGEST_STRING_LENGTH_IN_GRID + 1, sizeof(char));
-    chosen_grid_size = grid[cursor.x_coord][cursor.y_coord];
+    char* chosen_grid_size = grid[cursor.x_coord][cursor.y_coord];
     return chosen_grid_size;
 
 }
@@ -51,7 +50,6 @@ int main(void) {
     char* chosen_grid_size = get_user_chosen_grid_size();
     printf("The user has chosen the %s grid size.\n", chosen_grid_size);
 
-    /* test commit */
     return 0;
 }
 
