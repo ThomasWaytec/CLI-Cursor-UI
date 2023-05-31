@@ -55,7 +55,7 @@ static void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char**
             text = grid[row][column];
             text_length = strlen(text);
 
-            full_padding_length = largest_per_column[column] - strlen(text);
+            full_padding_length = largest_per_column[column] - text_length;
             
             left_padding_length = BASE_PADDING + full_padding_length/2;
             right_pading_length = BASE_PADDING + full_padding_length/2 + (full_padding_length % 2);
