@@ -73,23 +73,37 @@ static void animate_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRID
 
     
     char* temp = grid[cursor.x_coord][cursor.y_coord];
-    size_t visual_cursor_length = strlen(temp);
+    size_t all_visual_cursor_length = strlen(temp);
 
-    /* create visual cursor */
-    char* visual_cursor = calloc(visual_cursor_length, sizeof(char) + 1);    
-    for (size_t i = 0; i < visual_cursor_length; i++) {visual_cursor[i] = ' ';}
+    /* create visual cursors */
+    char* space_visual_cursor = calloc(all_visual_cursor_length, sizeof(char) + 1);
+    char* hyphen_visual_cursor = calloc(all_visual_cursor_length, sizeof(char) + 1);    
+    
+    for (size_t i = 0; i < all_visual_cursor_length; i++) {space_visual_cursor[i] = ' ';}
+    for (size_t i = 0; i < all_visual_cursor_length; i++) {hyphen_visual_cursor[i] = '-';}
 
 
 
 
-    /* show cursor */
-    grid[cursor.x_coord][cursor.y_coord] = visual_cursor;
+
+    /* draw 3 frames */
+
+    /* frame with hyphen cursor */
+    grid[cursor.x_coord][cursor.y_coord] = hyphen_visual_cursor;
+    SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);    
+    draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
+    
+
+    Sleep(1);
+
+    /* frame with space cursor */
+    grid[cursor.x_coord][cursor.y_coord] = space_visual_cursor;
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);    
     draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
 
-    Sleep(3);
+    Sleep(1);
 
-    /* change cursor to the original value */
+    /* frame with original value */
     grid[cursor.x_coord][cursor.y_coord] = temp;
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);
     draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
@@ -128,7 +142,7 @@ Cursor live_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** gri
     };
     
     system("cls");
-    while (!process_user_input(&cursor, key_mapping)) {draw_grid_with_cursor(GRID_HEIGHT, GRID_LENGTH, grid, cursor);}
+    while (!process_user_input(&cursor, key_mapping)) {animate_grid_with_cursor(GRID_HEIGHT, GRID_LENGTH, grid, cursor);}
     system("cls");
 
 
