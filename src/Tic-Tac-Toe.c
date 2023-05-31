@@ -18,8 +18,8 @@ void hide_terminal_cursor(void) {
 char* get_user_chosen_grid_size(void) {
     
     /* define the grid dimensions */
-    const size_t GRID_HEIGHT = 3;
-    const size_t GRID_LENGTH = 3;
+    const size_t GRID_HEIGHT = 7;
+    const size_t GRID_LENGTH = 1;
 
     /* allocating space for the grid */
     char*** grid = calloc(GRID_HEIGHT, __SIZEOF_POINTER__);    
@@ -28,9 +28,13 @@ char* get_user_chosen_grid_size(void) {
 
     /* initializing the grid */
     const size_t LONGEST_STRING_LENGTH_IN_GRID = 3;
-    grid[0][0] = "1x1"; grid[0][1] = "2x2"; grid[0][2] = "3x3";
-    grid[1][0] = "4x4"; grid[1][1] = "5x5"; grid[1][2] = "6x6";
-    grid[2][0] = "7x7"; grid[2][1] = "8x8"; grid[2][2] = "9x9";
+    grid[0][0] = "3x3";
+    grid[1][0] = "4x4";
+    grid[2][0] = "5x5";
+    grid[3][0] = "6x6";
+    grid[4][0] = "7x7";
+    grid[5][0] = "8x8";
+    grid[6][0] = "9x9";
 
 
     /* get the chosen value from the user */
@@ -49,12 +53,11 @@ int main(void) {
 
     
     char* chosen_grid_size = get_user_chosen_grid_size();
+    int grid_size = chosen_grid_size[0] - '0'; /* get grid size as integer*/
 
 
 
     /* create game grid of chosen size */
-    int grid_size = chosen_grid_size[0] - '0'; /* get grid size as integer*/
-    
     const size_t GRID_HEIGHT = grid_size;
     const size_t GRID_LENGTH = grid_size;
 
@@ -70,9 +73,18 @@ int main(void) {
     }
 
 
+    Cursor cursor;
+    bool game_end = false;
+    while (!game_end)
+    {
+        cursor = live_grid(GRID_HEIGHT, GRID_LENGTH, game_grid);
+        game_grid[cursor.x_coord][cursor.y_coord] = "X";
 
-    live_grid(GRID_HEIGHT, GRID_LENGTH, game_grid);
-
+        cursor = live_grid(GRID_HEIGHT, GRID_LENGTH, game_grid);
+        game_grid[cursor.x_coord][cursor.y_coord] = "O";
+        
+    }
+    
     return 0;
 }
 
