@@ -38,7 +38,7 @@ static size_t* _get_largest_per_column(const size_t GRID_HEIGHT, const size_t GR
 
 }
 
-static void _draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, const size_t BASE_PADDING) {
+void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, const size_t BASE_PADDING) {
     
     size_t* largest_per_column = _get_largest_per_column(GRID_HEIGHT, GRID_LENGTH, grid);
 
@@ -92,7 +92,7 @@ static void _animate_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRI
     /* frame with hyphen cursor */
     grid[cursor.x_coord][cursor.y_coord] = equal_sign_visual_cursor;
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);    
-    _draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
+    draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
     
 
     Sleep(1);
@@ -100,14 +100,14 @@ static void _animate_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRI
     /* frame with space cursor */
     grid[cursor.x_coord][cursor.y_coord] = space_visual_cursor;
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);    
-    _draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
+    draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
 
     Sleep(1);
 
     /* frame with original value */
     grid[cursor.x_coord][cursor.y_coord] = temp;
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);
-    _draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
+    draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
 
     Sleep(3);
 
