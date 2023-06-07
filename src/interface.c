@@ -12,6 +12,7 @@
 static const int BASE_PADDING = 3;
 static const COORD TOP_LEFT_CURSOR_POSITION = {0, 0};
 
+
     
 static size_t* _get_largest_per_column(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid) {
 
