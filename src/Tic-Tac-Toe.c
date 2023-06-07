@@ -164,16 +164,20 @@ int main(void) {
         current_player_symbol = player_symbols[turn_count % 2];
 
 
+
         /* make player move */
         cursor = live_grid(BOARD_HEIGHT, BOARD_LENGTH, game_board); /* get where the player wants to move */
-        if (game_board[cursor.x_coord][cursor.y_coord] != BLANK) {continue;} /* Only if space is not occupied */
-        game_board[cursor.x_coord][cursor.y_coord] = current_player_symbol;
-        
-        turn_count++;    
-        
+
+        if (game_board[cursor.x_coord][cursor.y_coord] == BLANK) { /* Only if space is not occupied */
+            game_board[cursor.x_coord][cursor.y_coord] = current_player_symbol;
+            turn_count++;
+        }
+
+
     } while (!is_player_win(current_player_symbol, &cursor, BOARD_HEIGHT, BOARD_LENGTH, game_board) && 
              !is_a_tie(turn_count, BOARD_HEIGHT, BOARD_LENGTH));
-    
+
+
     /* print end results */
     if (is_a_tie(turn_count, BOARD_HEIGHT, BOARD_LENGTH)) {printf("IT'S A TIE!");}
     else {printf("%s HAS WON!\n", current_player_symbol);}
