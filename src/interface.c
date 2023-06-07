@@ -130,7 +130,10 @@ Cursor live_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** gri
         ['a'] = {.add_to_x_coord = 0, .add_to_y_coord = -1, .terminate_loop = false},
 
         
-        [ENTER_KEY] {.add_to_x_coord = 0, .add_to_y_coord = 0, .terminate_loop = true}        
+        [ENTER_KEY] {.add_to_x_coord = 0, .add_to_y_coord = 0, .terminate_loop = true},
+        
+        [SPACE_KEY] {.add_to_x_coord = 0, .add_to_y_coord = 0, .terminate_loop = true}
+          
     };
 
     /* initialize cursor */
