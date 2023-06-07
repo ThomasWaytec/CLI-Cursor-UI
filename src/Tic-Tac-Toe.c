@@ -7,16 +7,6 @@
 
 #define BLANK " "
 
-bool is_space_occupied(char*** game_board, Cursor cursor) {
-    if (game_board[cursor.x_coord][cursor.y_coord] != BLANK)
-    {
-        printf("!!SPACE OCCUPIED!!");
-        Sleep(1500);
-        return true;
-    }
-    return false;
-}
-
 void hide_terminal_cursor(void) {
 
     /* hide Windows terminal cursor */
@@ -156,21 +146,20 @@ int main(void) {
     while (!game_end)
     {
         
-        //printf("turn_count=%d\n%d", turn_count, BOARD_HEIGHT * BOARD_LENGTH);
-        //Sleep(1 * 1000);
+        /* check if game end condition */
+        if (turn_count == BOARD_HEIGHT * BOARD_LENGTH) {printf("Tie!"); break;} /* check if a tie */
+        if (check_if_player_won(current_player_symbol, &cursor, BOARD_HEIGHT, BOARD_LENGTH, game_board)) {printf("%s has won!", current_player_symbol); break;}
 
-        /* check draw */
-        if (turn_count == BOARD_HEIGHT * BOARD_LENGTH) {printf("Tie!"); break;}
-
-        /* check if win */
-        if (check_if_player_won(current_player_symbol, &cursor, BOARD_HEIGHT, BOARD_LENGTH, game_board)) {printf("%s HAS WON!!!!\n", current_player_symbol); break;}
-
+        /* get the current player according to the turn */
         current_player_symbol = player_symbols[turn_count % 2];
 
+
         /* make player move */
-        cursor = live_grid(BOARD_HEIGHT, BOARD_LENGTH, game_board);
-        if (is_space_occupied(game_board, cursor)) {continue;}
+        cursor = live_grid(BOARD_HEIGHT, BOARD_LENGTH, game_board); /* get where the player wants to move */
+        if (game_board[cursor.x_coord][cursor.y_coord] != BLANK) {continue;} /* Only if space is not occupied */
         game_board[cursor.x_coord][cursor.y_coord] = current_player_symbol;
+
+
         turn_count++;
 
     }
