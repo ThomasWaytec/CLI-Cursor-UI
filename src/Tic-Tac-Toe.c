@@ -123,15 +123,13 @@ bool is_a_tie(size_t turn_count, size_t BOARD_HEIGHT, size_t BOARD_LENGTH){
 int main(void) {
     
     hide_terminal_cursor();
-
+    /* resize terminal window to a hardcoded value */
     resize_terminal_window();
-
 
 
     /* get the chosen board size from the user */
     char* chosen_board_size = get_user_chosen_board_size();
     int board_size = chosen_board_size[0] - '0'; /* convert board size to integer*/
-
 
 
     /* create game board of chosen size */
@@ -148,6 +146,8 @@ int main(void) {
             game_board[row][column] = BLANK;     /* initializing the board */
         }
     }
+
+
 
 
 
@@ -178,13 +178,16 @@ int main(void) {
              !is_a_tie(turn_count, BOARD_HEIGHT, BOARD_LENGTH));
 
 
+
+
+
+
     /* print end results */
     draw_grid(BOARD_HEIGHT, BOARD_LENGTH, game_board, 3);
 
     if (is_a_tie(turn_count, BOARD_HEIGHT, BOARD_LENGTH)) {printf("\n\nIT'S A TIE!\n\n");} /* print if it's a tie */
     else {printf("\n\n\"%s\" HAS WON!\n\n", current_player_symbol);} /* print winner */
 
-    
 
 
     /* exit */
