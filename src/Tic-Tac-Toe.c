@@ -48,7 +48,7 @@ char* get_user_chosen_board_size(void) {
 
 }
 
-bool check_if_player_won(char* player_symbol, Cursor* cursor, size_t BOARD_HEIGHT, size_t BOARD_LENGTH, char*** game_board) {
+bool is_player_win(char* player_symbol, Cursor* cursor, size_t BOARD_HEIGHT, size_t BOARD_LENGTH, char*** game_board) {
 
     const size_t BOARD_SIZE = BOARD_HEIGHT;
 
@@ -105,7 +105,9 @@ bool check_if_player_won(char* player_symbol, Cursor* cursor, size_t BOARD_HEIGH
     return false;
 }
 
-
+bool is_a_tie(size_t turn_count, size_t BOARD_HEIGHT, size_t BOARD_LENGTH){
+    return (turn_count == BOARD_HEIGHT * BOARD_LENGTH);
+}
 
 
 int main(void) {
@@ -142,13 +144,11 @@ int main(void) {
     size_t turn_count = 0;
     char* current_player_symbol = player_symbols[turn_count % 2]; 
     
-    bool game_end = false;
-    while (!game_end)
+
+    while (!is_player_win(current_player_symbol, &cursor, BOARD_HEIGHT, BOARD_LENGTH, game_board) &&
+           !is_a_tie(turn_count, BOARD_HEIGHT, BOARD_LENGTH))
     {
         
-        /* check if game end condition */
-        if (turn_count == BOARD_HEIGHT * BOARD_LENGTH) {printf("Tie!"); break;} /* check if a tie */
-        if (check_if_player_won(current_player_symbol, &cursor, BOARD_HEIGHT, BOARD_LENGTH, game_board)) {printf("%s has won!", current_player_symbol); break;}
 
         /* get the current player according to the turn */
         current_player_symbol = player_symbols[turn_count % 2];
