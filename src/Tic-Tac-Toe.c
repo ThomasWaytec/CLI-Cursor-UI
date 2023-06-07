@@ -116,7 +116,7 @@ bool is_player_win(char* player_symbol, Cursor* cursor, size_t BOARD_HEIGHT, siz
 }
 
 bool is_a_tie(size_t turn_count, size_t BOARD_HEIGHT, size_t BOARD_LENGTH){
-    return (turn_count == (BOARD_HEIGHT*BOARD_LENGTH) - 1);
+    return (turn_count == BOARD_HEIGHT*BOARD_LENGTH);
 }
 
 
@@ -174,7 +174,6 @@ int main(void) {
     } while (!is_player_win(current_player_symbol, &cursor, BOARD_HEIGHT, BOARD_LENGTH, game_board) && 
              !is_a_tie(turn_count, BOARD_HEIGHT, BOARD_LENGTH));
     
-        
     return 0;
 }
 
