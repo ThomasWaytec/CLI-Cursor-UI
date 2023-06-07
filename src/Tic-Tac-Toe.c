@@ -49,15 +49,17 @@ char* get_user_chosen_board_size(void) {
 }
 
 bool is_player_win(char* player_symbol, Cursor* cursor, size_t BOARD_HEIGHT, size_t BOARD_LENGTH, char*** game_board) {
-
+    
     const size_t BOARD_SIZE = BOARD_HEIGHT;
 
 
 
     /* row */
-    for (int i = 0; i < BOARD_LENGTH; i++) {
+    for (int i = 0; i < BOARD_HEIGHT; i++) {
 
-        if (game_board[cursor->x_coord][i] != player_symbol) {break;}
+        printf("%s\n", game_board[cursor->x_coord][i]);
+        
+        if (strcmp(game_board[cursor->x_coord][i], player_symbol) != 0) {printf("break!\n"); break;}
 
         if (i == BOARD_LENGTH - 1) {return true;}
     }
@@ -66,9 +68,9 @@ bool is_player_win(char* player_symbol, Cursor* cursor, size_t BOARD_HEIGHT, siz
 
 
     /* column */
-    for (int i = 0; i < BOARD_HEIGHT; i++) {
+    for (int i = 0; i < BOARD_LENGTH; i++) {
         
-        if (game_board[i][cursor->y_coord] != player_symbol) {break;}
+        if (strcmp(game_board[i][cursor->y_coord], player_symbol) != 0 ) {break;}
 
         if(i == BOARD_HEIGHT - 1) {return true;}
     }
@@ -81,7 +83,7 @@ bool is_player_win(char* player_symbol, Cursor* cursor, size_t BOARD_HEIGHT, siz
         
         for (int i = 0; i < BOARD_SIZE; i++) {
 
-            if (game_board[i][i] != player_symbol) {break;}
+            if (strcmp(game_board[i][i], player_symbol) != 0) {break;}
 
             if(i == BOARD_SIZE - 1) {return true;}
         }
@@ -95,7 +97,7 @@ bool is_player_win(char* player_symbol, Cursor* cursor, size_t BOARD_HEIGHT, siz
 
         for (int i = 0; i < BOARD_SIZE; i++) {
 
-            if (game_board[i][(BOARD_SIZE - 1) - i] != player_symbol) {break;}
+            if (strcmp(game_board[i][(BOARD_SIZE - 1) - i], player_symbol) != 0) {break;}
 
             if(i == BOARD_SIZE - 1) {return true;}
         }
@@ -106,7 +108,7 @@ bool is_player_win(char* player_symbol, Cursor* cursor, size_t BOARD_HEIGHT, siz
 }
 
 bool is_a_tie(size_t turn_count, size_t BOARD_HEIGHT, size_t BOARD_LENGTH){
-    return (turn_count == BOARD_HEIGHT * BOARD_LENGTH);
+    return (turn_count == (BOARD_HEIGHT*BOARD_LENGTH) - 1);
 }
 
 
@@ -145,11 +147,9 @@ int main(void) {
     char* current_player_symbol = player_symbols[turn_count % 2]; 
     
 
-    while (!is_player_win(current_player_symbol, &cursor, BOARD_HEIGHT, BOARD_LENGTH, game_board) &&
-           !is_a_tie(turn_count, BOARD_HEIGHT, BOARD_LENGTH))
+    do
     {
         
-
         /* get the current player according to the turn */
         current_player_symbol = player_symbols[turn_count % 2];
 
@@ -158,12 +158,14 @@ int main(void) {
         cursor = live_grid(BOARD_HEIGHT, BOARD_LENGTH, game_board); /* get where the player wants to move */
         if (game_board[cursor.x_coord][cursor.y_coord] != BLANK) {continue;} /* Only if space is not occupied */
         game_board[cursor.x_coord][cursor.y_coord] = current_player_symbol;
-
-
-        turn_count++;
-
-    }
+        
+        turn_count++;    
+        
+    } while (!is_player_win(current_player_symbol, &cursor, BOARD_HEIGHT, BOARD_LENGTH, game_board) && 
+             !is_a_tie(turn_count, BOARD_HEIGHT, BOARD_LENGTH));
     
+        
+    printf("The End!\n");
     return 0;
 }
 
