@@ -179,8 +179,18 @@ int main(void) {
 
 
     /* print end results */
-    if (is_a_tie(turn_count, BOARD_HEIGHT, BOARD_LENGTH)) {printf("IT'S A TIE!");}
-    else {printf("%s HAS WON!\n", current_player_symbol);}
+    draw_grid(BOARD_HEIGHT, BOARD_LENGTH, game_board, 3);
+
+    if (is_a_tie(turn_count, BOARD_HEIGHT, BOARD_LENGTH)) {printf("\n\nIT'S A TIE!\n\n");} /* print if it's a tie */
+    else {printf("\n\n\"%s\" HAS WON!\n\n", current_player_symbol);} /* print winner */
+
+    
+
+
+    /* exit */
+    fseek(stdin, 0, SEEK_END);
+    printf("Press Any Key To Exit...");
+    getch();
 
     
 
