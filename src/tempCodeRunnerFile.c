@@ -1,1 +1,1 @@
-grid
+BOARD_SIZE
