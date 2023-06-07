@@ -13,7 +13,7 @@ static const int BASE_PADDING = 3;
 static const COORD TOP_LEFT_CURSOR_POSITION = {0, 0};
 
     
-static size_t* get_largest_per_column(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid) {
+static size_t* _get_largest_per_column(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid) {
 
     size_t* largest_per_column = calloc(GRID_LENGTH, sizeof(size_t));
     size_t largest;
@@ -37,7 +37,7 @@ static size_t* get_largest_per_column(const size_t GRID_HEIGHT, const size_t GRI
 
 }
 
-static void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, const size_t BASE_PADDING) {
+static void _draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, const size_t BASE_PADDING) {
     
     size_t* largest_per_column = get_largest_per_column(GRID_HEIGHT, GRID_LENGTH, grid);
 
@@ -69,7 +69,7 @@ static void draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char**
 
 }
 
-static void animate_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, Cursor cursor) {
+static void _animate_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, Cursor cursor) {
 
     
     char* temp = grid[cursor.x_coord][cursor.y_coord];
