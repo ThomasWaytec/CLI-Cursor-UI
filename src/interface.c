@@ -40,7 +40,7 @@ static size_t* _get_largest_per_column(const size_t GRID_HEIGHT, const size_t GR
 
 static void _draw_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** grid, const size_t BASE_PADDING) {
     
-    size_t* largest_per_column = get_largest_per_column(GRID_HEIGHT, GRID_LENGTH, grid);
+    size_t* largest_per_column = _get_largest_per_column(GRID_HEIGHT, GRID_LENGTH, grid);
 
     size_t full_padding_length;
     size_t left_padding_length;
@@ -92,7 +92,7 @@ static void _animate_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRI
     /* frame with hyphen cursor */
     grid[cursor.x_coord][cursor.y_coord] = equal_sign_visual_cursor;
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);    
-    draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
+    _draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
     
 
     Sleep(1);
@@ -100,14 +100,14 @@ static void _animate_grid_with_cursor(const size_t GRID_HEIGHT, const size_t GRI
     /* frame with space cursor */
     grid[cursor.x_coord][cursor.y_coord] = space_visual_cursor;
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);    
-    draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
+    _draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
 
     Sleep(1);
 
     /* frame with original value */
     grid[cursor.x_coord][cursor.y_coord] = temp;
     SetConsoleCursorPosition(STD_HANDLE, TOP_LEFT_CURSOR_POSITION);
-    draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
+    _draw_grid(GRID_HEIGHT, GRID_LENGTH, grid, BASE_PADDING);
 
     Sleep(3);
 
@@ -131,7 +131,7 @@ Cursor live_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** gri
 
         
         [ENTER_KEY] {.add_to_x_coord = 0, .add_to_y_coord = 0, .terminate_loop = true},
-        
+
         [SPACE_KEY] {.add_to_x_coord = 0, .add_to_y_coord = 0, .terminate_loop = true}
           
     };
@@ -148,7 +148,7 @@ Cursor live_grid(const size_t GRID_HEIGHT, const size_t GRID_LENGTH, char*** gri
     };
     
     system("cls");
-    while (!process_user_input(&cursor, key_mapping)) {animate_grid_with_cursor(GRID_HEIGHT, GRID_LENGTH, grid, cursor);}
+    while (!process_user_input(&cursor, key_mapping)) {_animate_grid_with_cursor(GRID_HEIGHT, GRID_LENGTH, grid, cursor);}
     system("cls");
 
 
