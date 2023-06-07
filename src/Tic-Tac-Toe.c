@@ -174,6 +174,10 @@ int main(void) {
     } while (!is_player_win(current_player_symbol, &cursor, BOARD_HEIGHT, BOARD_LENGTH, game_board) && 
              !is_a_tie(turn_count, BOARD_HEIGHT, BOARD_LENGTH));
     
+    /* print end results */
+    if (is_a_tie(turn_count, BOARD_HEIGHT, BOARD_LENGTH)) {printf("IT'S A TIE!");}
+    else {printf("%s HAS WON!\n", current_player_symbol);}
+
     return 0;
 }
 
