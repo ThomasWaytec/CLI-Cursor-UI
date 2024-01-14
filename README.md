@@ -9,7 +9,7 @@ A demo project (Tic-Tac-Toe) for a keyboard navigation based command-line interf
 - gcc
 - make
 
-Clone the repository and run the makefile:
+Clone the repository and run the Makefile:
 ```shell
 git clone https://github.com/ThomasWaytec/CLI-Cursor-UI.git
 cd ./CLI-Cursor-UI
